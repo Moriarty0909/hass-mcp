@@ -61,21 +61,16 @@ npx -y github:Moriarty0909/hass-mcp#main
 ```
       
 
+### 方式 2：本地源码安装
 
-
-方式 2：本地源码安装
-
-
-
-
-      
+```bash
 
 git clone https://github.com/Moriarty0909/hass-mcp.git
 cd hass-mcp
 pnpm install
 pnpm build
 
-
+```
       
 
 
