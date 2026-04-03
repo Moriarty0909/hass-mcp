@@ -78,29 +78,19 @@ pnpm build
 Run
 
 
-
-
       
-
 export HASS_URL="http://homeassistant.local:8123"
 export HASS_TOKEN="<your long-lived access token>"
 
 npx -y github:Moriarty0909/hass-mcp#main
 
 
-      
-
 
 
 Configure in an MCP client
 
 Example (CoPaw config.json):
-
-
-
-
       
-
 {
   "mcpServers": {
     "homeassistant": {
