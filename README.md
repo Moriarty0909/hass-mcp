@@ -58,7 +58,7 @@ Tools exposed:
 ```bash
 npx -y github:Moriarty0909/hass-mcp#main
 
-
+```
       
 
 
