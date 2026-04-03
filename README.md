@@ -55,6 +55,8 @@ Tools exposed:
 
 ### 方式 1：直接从 GitHub 安装（推荐）✅
 
+**注意**: 此仓库已包含编译产物 (dist/)，可以直接使用。
+
 ```bash
 npx -y github:Moriarty0909/hass-mcp#main
 
