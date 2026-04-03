@@ -34,7 +34,8 @@
     "test:watch": "vitest",
     "release": "bumpp --commit --tag --push",
     "publish:ci": "tsx scripts/publish.ts",
-    "start": "node --enable-source-maps ./dist/index.js"
+    "start": "node --enable-source-maps ./dist/index.js",
+    "pre-commit": "pnpm build && pnpm test"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",

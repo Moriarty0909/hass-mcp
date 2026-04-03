@@ -47,9 +47,26 @@ An open-source **MCP server** for controlling and querying **Home Assistant**.
 
 Tools exposed:
 
+**状态查询**:
 - `ha_get_state` — get state for an entity
 - `ha_list_states` — list all states (can be large)
+- `ha_get_entities_by_area` — get entities in specific area with states
+- `ha_get_entities_by_type` — get entities of specific type with states
+
+**控制操作**:
 - `ha_call_service` — call any service
+- `ha_light_turn_on/off` — light control
+- `ha_area_lights_on/off` — area lights batch control
+
+**配置查询**:
+- `ha_list_services` — list available services
+- `ha_list_areas` — list areas
+- `ha_list_devices` — list devices
+- `ha_list_entity_registry` — list entity registry
+
+**历史数据**:
+- `ha_get_logbook` — get logbook entries
+- `ha_get_history` — get history data
 
 ## Install
 
@@ -59,52 +76,28 @@ Tools exposed:
 
 ```bash
 npx -y github:Moriarty0909/hass-mcp#main
+```
 
+### 方式 2：本地源码安装
 
-      
-
-
-
-方式 2：本地源码安装
-
-
-
-
-      
-
+```bash
 git clone https://github.com/Moriarty0909/hass-mcp.git
 cd hass-mcp
 pnpm install
 pnpm build
+```
 
+## Run
 
-      
-
-
-
-Run
-
-
-
-
-      
-
+```bash
 export HASS_URL="http://homeassistant.local:8123"
 export HASS_TOKEN="<your long-lived access token>"
 
 npx -y github:Moriarty0909/hass-mcp#main
-
-
-      
-
-
-
-Configure in an MCP client
+```
+## Configure in an MCP client
 
 Example (CoPaw config.json):
-
-
-
 
       
 
@@ -122,23 +115,12 @@ Example (CoPaw config.json):
   }
 }
 
+## Security
 
-      
+- Treat tokens as secrets.
+- Prefer running this server on the same LAN as Home Assistant.
+- If your HA is behind Cloudflare Access, run this MCP server on the LAN side.
 
-
-
-Security
-
-
-
-Treat tokens as secrets.
-
-Prefer running this server on the same LAN as Home Assistant.
-
-If your HA is behind Cloudflare Access, run this MCP server on the LAN side.
-
-
-
-License
+## License
 
 MIT
