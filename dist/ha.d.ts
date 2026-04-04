@@ -14,6 +14,11 @@ export type HaConfig = z.infer<typeof HaConfigSchema>;
 interface EntityRegistryEntry {
     entity_id: string;
     area_id?: string | null;
+    device_id?: string | null;
+}
+interface DeviceRegistryEntry {
+    id: string;
+    area_id?: string | null;
 }
 export declare class HomeAssistantClient {
     private readonly config;
@@ -37,7 +42,7 @@ export declare class HomeAssistantClient {
     }>;
     listServices(): Promise<import("home-assistant-js-websocket").HassServices>;
     listAreas(): Promise<unknown>;
-    listDevices(): Promise<unknown>;
+    listDevices(): Promise<DeviceRegistryEntry[]>;
     listEntityRegistry(): Promise<EntityRegistryEntry[]>;
     private restRequest;
     getLogbook(params: {
@@ -70,11 +75,13 @@ export declare class HomeAssistantClient {
         state: HassEntity;
         entity_id: string;
         area_id?: string | null;
+        device_id?: string | null;
     }[]>;
     getEntitiesByType(entityType: string): Promise<{
         state: HassEntity;
         entity_id: string;
         area_id?: string | null;
+        device_id?: string | null;
     }[]>;
 }
 export {};
