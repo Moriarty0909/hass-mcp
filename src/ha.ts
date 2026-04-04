@@ -29,6 +29,12 @@ function normalizeBaseUrl(url: string) {
 interface EntityRegistryEntry {
   entity_id: string
   area_id?: string | null
+  device_id?: string | null
+}
+
+interface DeviceRegistryEntry {
+  id: string
+  area_id?: string | null
 }
 
 export class HomeAssistantClient {
@@ -120,7 +126,7 @@ export class HomeAssistantClient {
     return await this.wsCall('config/area_registry/list')
   }
 
-  async listDevices() {
+  async listDevices(): Promise<DeviceRegistryEntry[]> {
     return await this.wsCall('config/device_registry/list')
   }
 
@@ -221,8 +227,31 @@ export class HomeAssistantClient {
   }
 
   async getEntitiesByArea(areaId: string) {
-    const entries = await this.listEntityRegistry()
-    const entities = entries.filter(e => e.area_id === areaId)
+    const [entries, devices] = await Promise.all([
+      this.listEntityRegistry(),
+      this.listDevices()
+    ])
+    
+    // 创建设备ID到区域的映射
+    const deviceAreaMap = new Map<string, string>()
+    devices.forEach(device => {
+      if (device.area_id) {
+        deviceAreaMap.set(device.id, device.area_id)
+      }
+    })
+    
+    // 过滤实体：实体本身有区域，或者通过设备继承区域
+    const entities = entries.filter(entity => {
+      // 实体直接有区域
+      if (entity.area_id === areaId) return true
+      
+      // 实体通过设备继承区域
+      if (entity.device_id && deviceAreaMap.has(entity.device_id)) {
+        return deviceAreaMap.get(entity.device_id) === areaId
+      }
+      
+      return false
+    })
     
     // 获取实体的当前状态
     await this.ensureConnected()
